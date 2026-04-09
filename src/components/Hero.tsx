@@ -1,4 +1,5 @@
-import { Calculator, ArrowRight } from "lucide-react";
+import { Calculator } from "lucide-react";
+import SocialProofCounter from "./SocialProofCounter";
 
 interface HeroProps {
   onStart: () => void;
@@ -16,14 +17,12 @@ export default function Hero({ onStart }: HeroProps) {
         </p>
         <button className="hero-cta" onClick={onStart}>
           <Calculator size={18} />
-          Calcular meu preço grátis
+          Descubra seu preço real — grátis
         </button>
         <p className="hero-cta-secondary">
           3 cálculos gratuitos por mês · Sem cadastro
         </p>
-        <div className="social-proof">
-          <strong>+2.400</strong> autônomos já descobriram o preço certo
-        </div>
+        <SocialProofCounter />
       </div>
     </div>
   );

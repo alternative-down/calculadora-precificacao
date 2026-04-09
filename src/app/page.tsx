@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+import { useVariant } from "@/hooks/useVariant";
+import { HeroVariantA } from "@/components/HeroVariant";
+import { HeroVariantB } from "@/components/HeroVariant";
 import Calculator from "@/components/Calculator";
 import type { CalcInput, CalcResult, Calculation } from "@/lib/types";
 
@@ -53,11 +55,17 @@ export default function HomePage() {
     setStarted(true);
   }
 
+  const { variant, isLoading } = useVariant();
+
   return (
     <main>
       <Header />
       {!started ? (
-        <Hero onStart={handleStart} />
+        isLoading ? null : variant === "B" ? (
+          <HeroVariantB onStart={handleStart} />
+        ) : (
+          <HeroVariantA onStart={handleStart} />
+        )
       ) : (
         <Calculator
           onCalculate={handleCalculate}
