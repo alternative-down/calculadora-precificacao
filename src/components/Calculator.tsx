@@ -135,7 +135,7 @@ export default function Calculator({
             <button
               className="result-action primary"
               onClick={() => {
-                setStep(1 as any);
+                setStep(1);
                 setResult(null);
               }}
             >
