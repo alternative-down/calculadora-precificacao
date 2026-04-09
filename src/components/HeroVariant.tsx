@@ -5,6 +5,10 @@ interface HeroProps {
   onStart: () => void;
 }
 
+/**
+ * Variant A — Problema (copy spec: dd0ac17)
+ * Headline: problema awareness, urgência emocional
+ */
 export function HeroVariantA({ onStart }: HeroProps) {
   return (
     <div className="container">
@@ -17,7 +21,7 @@ export function HeroVariantA({ onStart }: HeroProps) {
         </p>
         <button className="hero-cta" onClick={onStart}>
           <Calculator size={18} />
-          Descubra seu preço real — grátis
+          Calcular meu preço grátis
         </button>
         <p className="hero-cta-secondary">
           3 cálculos gratuitos por mês · Sem cadastro
@@ -28,19 +32,21 @@ export function HeroVariantA({ onStart }: HeroProps) {
   );
 }
 
+/**
+ * Variant B — Resultado (copy spec: dd0ac17)
+ * Headline: resultado direto, promessa clara
+ */
 export function HeroVariantB({ onStart }: HeroProps) {
   return (
     <div className="container">
       <div className="hero">
-        <h1 className="hero-title">Pare de cobrar menos do que vale.</h1>
+        <h1 className="hero-title">Descubra o preço certo do seu serviço em 3 minutos</h1>
         <p className="hero-subtitle">
-          Um cálculo de 3 minutos que muda a forma como você precifica.
-          <br />
-          Sem planilha, sem complicação.
+          Entrada de custos, taxa horária, margem de lucro — sem planilha.
         </p>
         <button className="hero-cta" onClick={onStart}>
           <Sparkles size={18} />
-          Calcular agora — é grátis
+          Calcular agora — grátis
         </button>
         <p className="hero-cta-secondary">
           3 cálculos gratuitos por mês · Sem cadastro
