@@ -6,7 +6,7 @@ export default function Header() {
     <header className="header">
       <div className="header-inner">
         <span className="header-logo">Alternative Down</span>
-        <Link href="https://alternativedown.com.br" className="header-back">
+        <Link href="https://alternativedown.com.br/orcamento" className="header-back">
           <ArrowLeft size={14} />
           Voltar
         </Link>

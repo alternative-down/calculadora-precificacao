@@ -6,11 +6,7 @@ import { HeroVariantA } from "@/components/HeroVariant";
 import { HeroVariantB } from "@/components/HeroVariant";
 import Calculator from "@/components/Calculator";
 import type { CalcInput, CalcResult, Calculation } from "@/lib/types";
-
-const STORAGE_KEY = "calc_preco_history";
-const FREE_LIMIT = 3;
-const PAY_PER_USE_PRICE = 1.5;
-const MONTHLY_PRICE = 9.9;
+import { FREE_LIMIT, PAY_PER_USE_PRICE, MONTHLY_PRICE, STORAGE_KEY } from "@/lib/pricing";
 
 function getUsageCount(): number {
   try {

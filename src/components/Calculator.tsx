@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Check } from "lucide-react";
 import type { CalcInput, CalcResult } from "@/lib/types";
 
@@ -18,7 +19,7 @@ export default function Calculator({
   payPerUsePrice,
   monthlyPrice,
 }: CalculatorProps) {
-  const [step, setStep] = useState<1 | 2 | 3 | "result">("result");
+  const [step, setStep] = useState<1 | 2 | 3 | "result">(1);
   const [input, setInput] = useState<CalcInput>({
     workType: "hora",
     hoursPerUnit: 1,
@@ -31,6 +32,16 @@ export default function Calculator({
     urgency: "normal",
   });
   const [result, setResult] = useState<CalcResult | null>(null);
+
+  // Rehydrate from localStorage so page refresh doesn't show empty result step
+  useEffect(() => {
+    if (step === "result" && !result) {
+      const raw = localStorage.getItem("calc_preco_history");
+      if (!raw) {
+        setStep(1);
+      }
+    }
+  }, [step, result]);
 
   const canUseFree = usageCount > 0;
   const usageText =
@@ -55,11 +66,15 @@ export default function Calculator({
     }).format(value);
   }
 
-  if (step === "result" && result) {
+  if (step === "result") {
+    if (!result) {
+      setStep(1);
+      return null;
+    }
     return (
       <div className="container">
         <div className="steps-container">
-          <StepIndicator activeStep={3} />
+          <StepIndicator activeStep={result ? 3 : 1} />
           <div className="result-card">
             <p className="result-label">Preço sugerido por {result.unitLabel}</p>
             <p className="result-price">{formatCurrency(result.recommendedPrice)}</p>
@@ -121,9 +136,9 @@ export default function Calculator({
                 Assine por <strong>R$ {monthlyPrice.toFixed(2).replace(".", ",")}/mês</strong> e use ilimitado — ou compre avulso por R$ {payPerUsePrice.toFixed(2).replace(".", ",")}.
               </p>
               <div style={{ display: "flex", gap: 8 }}>
-                <button className="upsell-btn">
+                <Link href="https://alternativedown.com.br/orcamento" className="upsell-btn">
                   📄 Gerar Orçamento →
-                </button>
+                </Link>
                 <button className="upsell-btn" style={{ background: "#2563eb" }}>
                   Assinar R$ {monthlyPrice.toFixed(2).replace(".", ",")}/mês
                 </button>
