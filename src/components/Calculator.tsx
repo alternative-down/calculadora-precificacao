@@ -20,6 +20,7 @@ export default function Calculator({
   monthlyPrice,
 }: CalculatorProps) {
   const [step, setStep] = useState<1 | 2 | 3 | "result">(1);
+  const [mounted, setMounted] = useState(false);
   const [input, setInput] = useState<CalcInput>({
     workType: "hora",
     hoursPerUnit: 1,
@@ -32,6 +33,11 @@ export default function Calculator({
     urgency: "normal",
   });
   const [result, setResult] = useState<CalcResult | null>(null);
+
+  // Mark as mounted (client-side only) to prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Rehydrate from localStorage so page refresh doesn't show empty result step
   useEffect(() => {
@@ -66,7 +72,7 @@ export default function Calculator({
     }).format(value);
   }
 
-  if (step === "result") {
+  if (step === "result" && mounted) {
     if (!result) {
       setStep(1);
       return null;
