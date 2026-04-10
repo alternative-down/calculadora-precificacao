@@ -8,6 +8,8 @@ interface HeroProps {
 /**
  * Variant A — Problema (copy spec: dd0ac17)
  * Headline: problema awareness, urgência emocional
+ * Subtitle: dor + problema
+ * CTA: ação simples
  */
 export function HeroVariantA({ onStart }: HeroProps) {
   return (

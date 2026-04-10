@@ -145,7 +145,7 @@ export default function Calculator({
                 <Link href="https://alternativedown.com.br/orcamento" className="upsell-btn">
                   📄 Gerar Orçamento →
                 </Link>
-                <button className="upsell-btn" style={{ background: "#2563eb" }}>
+                <button className="upsell-btn" style={{ background: "var(--btn-primary-bg)" }}>
                   Assinar R$ {monthlyPrice.toFixed(2).replace(".", ",")}/mês
                 </button>
               </div>
@@ -280,6 +280,7 @@ function StepCustos({
             className="form-input"
             value={input.hoursPerUnit}
             onChange={(e) => onChange({ hoursPerUnit: Number(e.target.value) })}
+            placeholder="Ex: 1"
             min="0.5"
             step="0.5"
           />
@@ -306,6 +307,7 @@ function StepCustos({
             className="form-input"
             value={input.workingHoursPerMonth}
             onChange={(e) => onChange({ workingHoursPerMonth: Number(e.target.value) })}
+            placeholder="Ex: 160"
             min="1"
           />
         </div>

@@ -13,6 +13,8 @@
   --accent: #2563eb;
   --accent-hover: #1d4ed8;
   --accent-light: #eff6ff;
+  --btn-primary-bg: #1d1b75;
+  --btn-primary-hover: #161360;
   --success: #16a34a;
   --warning: #ca8a04;
   --step-active: #2563eb;
@@ -89,16 +91,17 @@ input, select, textarea { font-family: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent);
+  background: var(--btn-primary-bg);
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
   border: none;
-  transition: background 0.15s;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(29, 27, 117, 0.25);
 }
-.hero-cta:hover { background: var(--accent-hover); }
+.hero-cta:hover { background: var(--btn-primary-hover); box-shadow: 0 4px 12px rgba(29, 27, 117, 0.35); }
 .hero-cta-secondary {
   display: block;
   margin-top: 12px;
@@ -258,19 +261,20 @@ input, select, textarea { font-family: inherit; }
 .btn-primary {
   flex: 1;
   padding: 12px 20px;
-  background: var(--accent);
+  background: var(--btn-primary-bg);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: background 0.15s;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(29, 27, 117, 0.25);
 }
-.btn-primary:hover { background: var(--accent-hover); }
+.btn-primary:hover { background: var(--btn-primary-hover); box-shadow: 0 4px 12px rgba(29, 27, 117, 0.35); }
 .btn-secondary {
   padding: 12px 20px;
   background: white;
@@ -342,11 +346,11 @@ input, select, textarea { font-family: inherit; }
 }
 .result-action:hover { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
 .result-action.primary {
-  background: var(--accent);
+  background: var(--btn-primary-bg);
   color: white;
-  border-color: var(--accent);
+  border-color: var(--btn-primary-bg);
 }
-.result-action.primary:hover { background: var(--accent-hover); }
+.result-action.primary:hover { background: var(--btn-primary-hover); border-color: var(--btn-primary-hover); }
 
 .usage-counter {
   text-align: center;
