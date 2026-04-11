@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import { trackCalculationComplete, trackLead } from "@/components/MetaPixel";
 import type { CalcInput, CalcResult } from "@/lib/types";
 
 interface CalculatorProps {
@@ -62,6 +63,9 @@ export default function Calculator({
     const r = onCalculate(input);
     setResult(r);
     setStep("result");
+    // Meta Pixel — fire events after state is set so tracking is tied to result
+    trackCalculationComplete(r.recommendedPrice);
+    trackLead();
   }
 
   function formatCurrency(value: number) {
