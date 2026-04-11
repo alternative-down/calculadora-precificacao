@@ -2,12 +2,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Check } from "lucide-react";
-import { trackCalculationComplete, trackLead } from "@/components/MetaPixel";
+import { trackCalculationComplete, trackLead, type UTMData } from "@/components/MetaPixel";
 import type { CalcInput, CalcResult } from "@/lib/types";
 
 interface CalculatorProps {
   onCalculate: (input: CalcInput) => CalcResult;
   usageCount: number;
+  utm?: UTMData;
   freeLimit: number;
   payPerUsePrice: number;
   monthlyPrice: number;
@@ -16,6 +17,7 @@ interface CalculatorProps {
 export default function Calculator({
   onCalculate,
   usageCount,
+  utm,
   freeLimit,
   payPerUsePrice,
   monthlyPrice,
@@ -64,8 +66,8 @@ export default function Calculator({
     setResult(r);
     setStep("result");
     // Meta Pixel — fire events after state is set so tracking is tied to result
-    trackCalculationComplete(r.recommendedPrice);
-    trackLead();
+    trackCalculationComplete(r.recommendedPrice, utm);
+    trackLead(utm);
   }
 
   function formatCurrency(value: number) {

@@ -6,6 +6,7 @@ import { HeroVariantA } from "@/components/HeroVariant";
 import { HeroVariantB } from "@/components/HeroVariant";
 import Calculator from "@/components/Calculator";
 import type { CalcInput, CalcResult, Calculation } from "@/lib/types";
+import type { UTMData } from "@/components/MetaPixel";
 import { FREE_LIMIT, PAY_PER_USE_PRICE, MONTHLY_PRICE, STORAGE_KEY } from "@/lib/pricing";
 
 function getUsageCount(): number {
@@ -30,12 +31,26 @@ function saveCalculation(calc: CalcResult, input: CalcInput) {
   } catch {}
 }
 
+function parseUTMParams(): UTMData {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source"),
+    utm_medium: params.get("utm_medium"),
+    utm_campaign: params.get("utm_campaign"),
+    utm_content: params.get("utm_content"),
+    utm_term: params.get("utm_term"),
+  };
+}
+
 export default function HomePage() {
   const [started, setStarted] = useState(false);
   const [usageCount, setUsageCount] = useState(FREE_LIMIT);
+  const [utm, setUtm] = useState<UTMData>({});
 
   useEffect(() => {
     setUsageCount(Math.max(0, FREE_LIMIT - getUsageCount()));
+    setUtm(parseUTMParams());
   }, [started]);
 
   function handleCalculate(input: CalcInput): CalcResult {
@@ -66,6 +81,7 @@ export default function HomePage() {
         <Calculator
           onCalculate={handleCalculate}
           usageCount={usageCount}
+          utm={utm}
           freeLimit={FREE_LIMIT}
           payPerUsePrice={PAY_PER_USE_PRICE}
           monthlyPrice={MONTHLY_PRICE}
@@ -87,32 +103,25 @@ function calculatePrice(input: CalcInput): CalcResult {
     experienceLevel,
   } = input;
 
-  // Tax multiplier by regime
   const taxMult: Record<string, number> = { isento: 0, mei: 0.05, simples: 0.1, pf: 0.15 };
   const taxRate = taxMult[taxType] ?? 0;
-  const socialCharges = 0.2; // FGTS, INSS etc.
+  const socialCharges = 0.2;
   const totalOverhead = taxRate + socialCharges;
 
-  // Monthly income target from fixed costs + desired rate
   const monthlyIncomeTarget = monthlyFixedCosts + (desiredHourlyRate * workingHoursPerMonth);
   const effectiveHourlyCost = monthlyIncomeTarget / workingHoursPerMonth;
 
-  // Price per unit type
   let basePricePerUnit = effectiveHourlyCost * hoursPerUnit;
 
-  // Apply experience multiplier
   const expMult: Record<string, number> = { junior: 1.0, pleno: 1.5, senior: 2.2 };
   basePricePerUnit *= expMult[experienceLevel] ?? 1.5;
 
-  // Urgency modifier
   const urgencyMult = input.urgency === "alta" ? 1.25 : input.urgency === "media" ? 1.1 : 1.0;
   basePricePerUnit *= urgencyMult;
 
-  // Add taxes and social charges
   const totalMultiplier = 1 + totalOverhead;
   let recommendedPrice = Math.ceil(basePricePerUnit * totalMultiplier * 100) / 100;
 
-  // Market reference
   let marketMin = recommendedPrice * 0.7;
   let marketMax = recommendedPrice * 1.3;
   if (marketRate > 0) {
