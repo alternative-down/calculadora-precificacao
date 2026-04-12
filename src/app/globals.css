@@ -352,6 +352,37 @@ input, select, textarea { font-family: inherit; }
 }
 .result-action.primary:hover { background: var(--btn-primary-hover); border-color: var(--btn-primary-hover); }
 
+/* Share row */
+.share-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.share-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.share-btn:active { transform: scale(0.97); }
+.share-btn--whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+.share-btn--copy {
+  background: var(--bg-secondary, #f1f5f9);
+  color: var(--text, #374151);
+  border: 1px solid var(--border, #e2e8f0);
+}
+
 .usage-counter {
   text-align: center;
   font-size: 12px;
