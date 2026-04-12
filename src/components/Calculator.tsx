@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { trackCalculationComplete, trackLead } from "@/components/MetaPixel";
 import type { CalcInput, CalcResult } from "@/lib/types";
+import FeedbackWidget from "./FeedbackWidget";
 
 interface CalculatorProps {
   onCalculate: (input: CalcInput) => CalcResult;
@@ -34,6 +35,7 @@ export default function Calculator({
     urgency: "normal",
   });
   const [result, setResult] = useState<CalcResult | null>(null);
+  const [showFeedback, setShowFeedback] = useState(false);
 
   // Mark as mounted (client-side only) to prevent hydration mismatch
   useEffect(() => {
@@ -47,6 +49,16 @@ export default function Calculator({
       if (!raw) {
         setStep(1);
       }
+    }
+  }, [step, result]);
+
+  // Show NPS feedback widget 1.5s after result is shown
+  useEffect(() => {
+    if (step === "result" && result) {
+      const alreadyShown = localStorage.getItem("calc_feedback_shown");
+      if (alreadyShown) return;
+      const timer = setTimeout(() => setShowFeedback(true), 1500);
+      return () => clearTimeout(timer);
     }
   }, [step, result]);
 
@@ -203,6 +215,10 @@ export default function Calculator({
           />
         )}
       </div>
+
+      {showFeedback && (
+        <FeedbackWidget onClose={() => setShowFeedback(false)} source="calculadora_precificacao" />
+      )}
     </div>
   );
 }
