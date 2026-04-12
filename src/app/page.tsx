@@ -5,9 +5,11 @@ import { useVariant } from "@/hooks/useVariant";
 import { HeroVariantA } from "@/components/HeroVariant";
 import { HeroVariantB } from "@/components/HeroVariant";
 import Calculator from "@/components/Calculator";
+import FeedbackWidget from "@/components/FeedbackWidget";
 import type { CalcInput, CalcResult, Calculation } from "@/lib/types";
 import type { UTMData } from "@/components/MetaPixel";
 import { FREE_LIMIT, PAY_PER_USE_PRICE, MONTHLY_PRICE, STORAGE_KEY } from "@/lib/pricing";
+import { HelpCircle, Calculator as CalcIcon } from "lucide-react";
 
 function getUsageCount(): number {
   try {
@@ -43,10 +45,35 @@ function parseUTMParams(): UTMData {
   };
 }
 
+const faqItems = [
+  {
+    question: "Quanto custa usar a Calculadora?",
+    answer: "Você tem 3 cálculos gratuitos por mês, sem cadastro. Acima disso, assine o plano mensal ou pague R$9,90 por uso extra.",
+  },
+  {
+    question: "A calculadora serve para qualquer profissão?",
+    answer: "Funciona melhor para quem cobra por hora, projeto ou diária — designers, desenvolvedores, redactores, consultores, tradutores, etc.",
+  },
+  {
+    question: "Como funciona o regime tributário (MEI, Simples, PF)?",
+    answer: "Cada regime tem uma alíquota diferente. MEI cobra 5% sobre o faturamento, Simples 10%, PF 15% e isento não cobra nada. A calculadora soma isso ao seu custo total.",
+  },
+  {
+    question: "O preço sugerido é o que devo cobrar?",
+    answer: "É um ponto de partida com margem segura. Se você já cobra mais caro e tem clientes, está ok. Se está começando, use o valor sugerido e ajuste com o tempo.",
+  },
+  {
+    question: "O que é o multiplicador de urgência?",
+    answer: "Trabalhos com prazo curto exigem mais. Urgência alta (+25%) ou média (+10%) são adicionados ao preço para compensar o esforço extra.",
+  },
+];
+
 export default function HomePage() {
   const [started, setStarted] = useState(false);
   const [usageCount, setUsageCount] = useState(FREE_LIMIT);
   const [utm, setUtm] = useState<UTMData>({});
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackKey, setFeedbackKey] = useState(0);
 
   useEffect(() => {
     setUsageCount(Math.max(0, FREE_LIMIT - getUsageCount()));
@@ -58,6 +85,13 @@ export default function HomePage() {
     if (started) {
       saveCalculation(calcResult, input);
       setUsageCount(Math.max(0, usageCount - 1));
+
+      // Show feedback widget after first successful calculation in session
+      const alreadyShown = localStorage.getItem("calc_feedback_shown");
+      if (!alreadyShown) {
+        setFeedbackKey((k) => k + 1);
+        setShowFeedback(true);
+      }
     }
     return calcResult;
   }
@@ -72,11 +106,36 @@ export default function HomePage() {
     <main>
       <Header />
       {!started ? (
-        isLoading ? null : variant === "B" ? (
-          <HeroVariantB onStart={handleStart} />
-        ) : (
-          <HeroVariantA onStart={handleStart} />
-        )
+        <>
+          {isLoading ? null : variant === "B" ? (
+            <HeroVariantB onStart={handleStart} />
+          ) : (
+            <HeroVariantA onStart={handleStart} />
+          )}
+
+          {/* FAQ Section */}
+          <section className="container py-16">
+            <div className="mx-auto max-w-3xl">
+              <div className="mb-8 flex items-center gap-3">
+                <HelpCircle className="h-6 w-6 text-emerald-400" />
+                <h2 className="text-2xl font-bold text-white">
+                  Perguntas frequentes
+                </h2>
+              </div>
+              <div className="space-y-4">
+                {faqItems.map((item) => (
+                  <div
+                    key={item.question}
+                    className="rounded-2xl border border-slate-700 bg-slate-800/60 p-5 backdrop-blur"
+                  >
+                    <h3 className="mb-2 font-medium text-white">{item.question}</h3>
+                    <p className="text-sm leading-6 text-slate-300">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
       ) : (
         <Calculator
           onCalculate={handleCalculate}
@@ -85,6 +144,13 @@ export default function HomePage() {
           freeLimit={FREE_LIMIT}
           payPerUsePrice={PAY_PER_USE_PRICE}
           monthlyPrice={MONTHLY_PRICE}
+        />
+      )}
+
+      {showFeedback && (
+        <FeedbackWidget
+          key={feedbackKey}
+          onClose={() => setShowFeedback(false)}
         />
       )}
     </main>

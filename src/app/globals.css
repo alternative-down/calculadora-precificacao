@@ -426,3 +426,19 @@ input, select, textarea { font-family: inherit; }
   .result-price { font-size: 34px; }
   .result-actions { flex-direction: column; }
 }
+/* Header nav */
+.header-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-support {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s;
+}
+.header-support:hover { color: var(--accent); }
