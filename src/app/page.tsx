@@ -5,6 +5,7 @@ import { useVariant } from "@/hooks/useVariant";
 import { HeroVariantA } from "@/components/HeroVariant";
 import { HeroVariantB } from "@/components/HeroVariant";
 import Calculator from "@/components/Calculator";
+import FAQAccordion from "@/components/FAQAccordion";
 import type { CalcInput, CalcResult, Calculation } from "@/lib/types";
 import type { UTMData } from "@/components/MetaPixel";
 import { FREE_LIMIT, PAY_PER_USE_PRICE, MONTHLY_PRICE, STORAGE_KEY } from "@/lib/pricing";
@@ -72,10 +73,15 @@ export default function HomePage() {
     <main>
       <Header />
       {!started ? (
-        isLoading ? null : variant === "B" ? (
-          <HeroVariantB onStart={handleStart} />
-        ) : (
-          <HeroVariantA onStart={handleStart} />
+        isLoading ? null : (
+          <>
+            {variant === "B" ? (
+              <HeroVariantB onStart={handleStart} />
+            ) : (
+              <HeroVariantA onStart={handleStart} />
+            )}
+            <FAQAccordion />
+          </>
         )
       ) : (
         <Calculator
