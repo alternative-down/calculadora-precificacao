@@ -7,7 +7,9 @@
     "build": "npm install --legacy-peer-deps && next build",
     "start": "next start",
     "lint": "eslint",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
@@ -18,12 +20,19 @@
     "react-markdown": "^9.0.1"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.4",
     "drizzle-kit": "^0.24.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
-    "typescript": "^5"
+    "jsdom": "^29.0.2",
+    "typescript": "^5",
+    "vitest": "^4.1.4"
   }
 }
