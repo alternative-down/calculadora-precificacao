@@ -117,7 +117,7 @@ export default function Calculator({
 
   if (step === "result" && mounted) {
     if (!result) {
-      setStep(1);
+      // Already handled by useEffect at line 72 — this guard only prevents render without data
       return null;
     }
     return (

@@ -8,10 +8,10 @@ export default defineConfig({
       '@': '/tmp/calc-test/src'
     }
   },
-  setupFiles: ['./src/test-setup.ts'],
   test: {
     environment: 'jsdom',
     globals: true,
+    setupFiles: ['./src/test-setup.ts'],
     include: ['src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}'],
     coverage: {
       provider: 'v8',
