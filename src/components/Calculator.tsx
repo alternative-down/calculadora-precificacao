@@ -47,9 +47,7 @@ export default function Calculator({
 
   // Track Lead event when result screen renders
   useEffect(() => {
-    if (step === "result" && result && mounted) {
-      trackLead(utm);
-    }
+
   }, [step, result, mounted, utm]);
 
   // Share handlers
@@ -177,7 +175,7 @@ export default function Calculator({
             </p>
           )}
 
-          {usageCount === 0 && (
+          {usageCount >= freeLimit && (
             <div className="upsell-banner">
               <p className="upsell-title">Limite atingido —continue calculando!</p>
               <p className="upsell-text">
@@ -187,9 +185,9 @@ export default function Calculator({
                 <Link href="https://alternativedown.com.br/orcamento" className="upsell-btn">
                   📄 Gerar Orçamento →
                 </Link>
-                <button className="upsell-btn" style={{ background: "var(--btn-primary-bg)" }}>
+                <Link href="/checkout" className="upsell-btn" style={{ background: "var(--btn-primary-bg)" }}>
                   Assinar R$ {monthlyPrice.toFixed(2).replace(".", ",")}/mês
-                </button>
+                </Link>
               </div>
             </div>
           )}
