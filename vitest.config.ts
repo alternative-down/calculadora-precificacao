@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': '/tmp/calc-test/src'
+      '@': '/tmp/calc-audit/src'
     }
   },
   test: {
