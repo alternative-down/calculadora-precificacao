@@ -1,12 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { POST } from './route'
 
-// Create the mock function in module scope (vitest hoists vi.mock to the top of the file)
+// Create mock before any imports
 const executeMock = vi.fn()
 
 vi.mock('@/lib/db', () => ({
   getDb: () => ({ execute: executeMock }),
 }))
+
+// Named import after mock — vitest hoists vi.mock so this is safe
+import { POST } from './route'
 
 describe('POST /api/feedback', () => {
   beforeEach(() => {
