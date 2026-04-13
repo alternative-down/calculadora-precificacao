@@ -1,0 +1,32 @@
+name: Package Lock Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  check-package-lock:
+    name: Detect package-lock.json changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for package-lock changes
+        id: lock-check
+        run: |
+          if [ -f package-lock.json ] && git diff --exit-code package-lock.json > /dev/null 2>&1; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "status=unchanged" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "status=changed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fail if package-lock was modified
+        if: steps.lock-check.outputs.changed == 'true'
+        run: |
+          echo "::error::package-lock.json was modified but not regenerated. Run 'npm install' and commit the updated package-lock.json."
+          exit 1
