@@ -104,7 +104,6 @@ export default function Calculator({
     setStep("result");
     // Meta Pixel — fire events after state is set so tracking is tied to result
     trackCalculationComplete(r.recommendedPrice, utm);
-    trackLead(utm);
   }
 
   function formatCurrency(value: number) {
