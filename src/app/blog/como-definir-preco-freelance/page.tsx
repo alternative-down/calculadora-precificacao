@@ -31,7 +31,7 @@ Neste guia, você vai aprender a metodologia que funciona — sem planilha compl
 
 A maioria dos freelancers erra por um motivo específico: tenta adivinhar o preço.
 
-Olha o concorrente,减半 o valor, coloca medo de perder o cliente, e no final trabalha 60 horas por semana por um salário de estágio.
+Olha o concorrente, reduz o valor, coloca medo de perder o cliente, e no final trabalha 60 horas por semana por um salário de estágio.
 
 **Cobrar barato não atrai cliente bom.** Atrai quem só quer pagar pouco. E esses clientes dão mais trabalho, pedem mais revisions, demoram mais para pagar.
 
