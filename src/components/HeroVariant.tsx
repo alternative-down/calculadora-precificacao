@@ -1,5 +1,5 @@
 import { Calculator, Sparkles } from "lucide-react";
-
+import SocialProofCounter from "./SocialProofCounter";
 
 interface HeroProps {
   onStart: () => void;
@@ -28,6 +28,7 @@ export function HeroVariantA({ onStart }: HeroProps) {
         <p className="hero-cta-secondary">
           3 cálculos gratuitos por mês · Sem cadastro
         </p>
+        <SocialProofCounter />
       </div>
     </div>
   );
@@ -50,8 +51,9 @@ export function HeroVariantB({ onStart }: HeroProps) {
           Calcular agora — grátis
         </button>
         <p className="hero-cta-secondary">
-          3 cálculos gratuitos por mês · Sem cadastro
+          3 cálculos gratuitas por mês · Sem cadastro
         </p>
+        <SocialProofCounter />
       </div>
     </div>
   );
