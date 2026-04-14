@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: "Preciso pagar para usar?",
-    a: "Não. Você tem 3 cálculos gratuitos por mês. Após isso, pode comprar avulso (R$ 1,50) ou assinar (R$ 9,90/mês) para cálculos ilimitados.",
+    a: "Não. Você tem 3 cálculos gratuitos por mês. Após isso, pode comprar avulso (R$ 9,90) ou assinar (R$ 29/mês) para cálculos ilimitados.",
   },
   {
     q: "O preço sugerido é definitivo?",

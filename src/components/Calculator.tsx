@@ -503,7 +503,7 @@ function StepPreco({
         {canUse ? (
           <p style={{ color: "var(--text-muted)" }}>Este cálculo usará 1 dos seus 3 gratuitos deste mês.</p>
         ) : (
-          <p style={{ color: "#dc2626" }}>Limite gratuito atingido. Compre avulso (R$ 1,50) ou assine (R$ 9,90/mês) para continuar.</p>
+          <p style={{ color: "#dc2626" }}>Limite gratuito atingido. Compre avulso (R$ 9,90) ou assine (R$ 29/mês) para continuar.</p>
         )}
       </div>
 
