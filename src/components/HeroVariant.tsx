@@ -51,7 +51,7 @@ export function HeroVariantB({ onStart }: HeroProps) {
           Calcular agora — grátis
         </button>
         <p className="hero-cta-secondary">
-          3 cálculos gratuitas por mês · Sem cadastro
+          3 cálculos gratuitos por mês · Sem cadastro
         </p>
         <SocialProofCounter />
       </div>
